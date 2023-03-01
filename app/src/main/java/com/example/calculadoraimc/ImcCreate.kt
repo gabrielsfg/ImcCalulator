@@ -2,6 +2,7 @@ package com.example.calculadoraimc
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
@@ -9,6 +10,12 @@ import androidx.core.content.ContextCompat
 import com.example.calculadoraimc.databinding.ActivityImcCreateBinding
 import java.math.BigDecimal
 import java.math.RoundingMode
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class ImcCreate : AppCompatActivity() {
     private var binding: ActivityImcCreateBinding? = null
@@ -46,12 +53,14 @@ class ImcCreate : AppCompatActivity() {
 
     private fun imcCalculate() {
         if (valid()) {
+            val imcDao = (application as ItemApp).db.ImcDao()
             val peso: Float = binding?.etWeight?.text.toString().toFloat()
             val altura: Float =
                 binding?.etHeight?.text.toString().toFloat() / 100 //Altura deve ser em m
 
             val imc = peso / (altura * altura)
             result(imc)
+            addInfos(imcDao)
         }else {
             Toast.makeText(this@ImcCreate, "Insira valores validos para altura e peso",
             Toast.LENGTH_SHORT).show()
@@ -85,4 +94,24 @@ class ImcCreate : AppCompatActivity() {
         binding?.tvType?.text = imcClassification
         binding?.llResult?.visibility = View.VISIBLE
     }
+
+
+    private fun addInfos(imcDao: ImcDao){
+        val peso = binding?.etWeight?.text.toString()
+        val altura = binding?.etHeight?.text.toString()
+        val imc = binding?.tvResult?.text.toString()
+
+        val c = Calendar.getInstance()
+        val dateTime = c.time
+        val sdf = SimpleDateFormat("dd MM yyyy", Locale.getDefault())
+        val date = sdf.format(dateTime)
+
+        lifecycleScope.launch{
+            imcDao.insert(ImcEntity(date = date,peso = peso, altura = altura, imc = imc))
+            Toast.makeText(applicationContext, "IMC salvo", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+
 }

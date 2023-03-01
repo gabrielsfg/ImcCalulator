@@ -23,9 +23,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/toolbar_history_imc"
-        android:layout_margin="10dp"
+        android:layout_marginRight="10dp"
         android:visibility="gone"
         tools:visibility="visible"
+        android:layout_marginEnd="50dp"
         >
 
         <TextView
@@ -36,14 +37,10 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"
+
             />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            android:layout_marginRight="4dp"
-            />
+
 
         <TextView
             android:layout_width="0dp"
@@ -53,14 +50,10 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"
+
             />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            android:layout_marginRight="4dp"
-            />
+
 
         <TextView
             android:layout_width="0dp"
@@ -70,14 +63,10 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"
+
             />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            android:layout_marginRight="4dp"
-            />
+
 
         <TextView
             android:layout_width="0dp"
@@ -87,6 +76,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"
+
             />
     </LinearLayout>
 
@@ -95,12 +85,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/llTable"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10sp"
         android:visibility="gone"
         tools:visibility="visible"/>
 
     <TextView
+        android:id="@+id/tvNoImc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sem IMC calculado ainda"
@@ -110,6 +100,7 @@
         android:gravity="center"
         android:textColor="@color/black"
         android:textStyle="bold"
+        android:visibility="visible"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
